@@ -23,8 +23,8 @@ class Chapter extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function videos(): HasMany
+    public function lessons(): HasMany
     {
-        return $this->hasMany(Videos::class);
+        return $this->hasMany(Lesson::class);
     }
 }
