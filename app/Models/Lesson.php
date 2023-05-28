@@ -17,6 +17,8 @@ class Lesson extends Model
         'thumbUrl',
         'length',
         'url',
+        'position',
+        'type',
         'status',
         'platform',
         'public',

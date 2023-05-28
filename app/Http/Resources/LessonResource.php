@@ -2,11 +2,10 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Chapter;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PublicCourseResource extends JsonResource
+class LessonResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,18 +15,19 @@ class PublicCourseResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'short' => $this->short,
+            'title' => $this->title,
             'description' => $this->description,
-            'slug' => $this->slug,
-            'image' => $this->image,
-            'latest_price' => $this->latest_price,
-            'before_price' => $this->before_price,
+            'thumbUrl' => $this->thumbUrl,
+            'length' => $this->length,
+            'url' => $this->url,
+            'type' => $this->type,
+            'status' => $this->status,
+            'position' => $this->position,
+            'platform' => $this->platform,
             'public' => $this->public,
-            'publish_at' => $this->publish_at,
             'author' => UserResource::collection($this->author), // 'user_id'
-            'chapters' => PublicChapterResource::collection($this->chapters),
+            'chapter' => ChapterResource::collection($this->chapter), // 'chapter_id'
+            'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
     }
