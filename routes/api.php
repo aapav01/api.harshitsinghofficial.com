@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SocialiteController;
 use App\Http\Resources\CourseResource;
 use App\Http\Resources\PublicCourseResource;
 use App\Http\Resources\UserResource;
@@ -26,6 +27,10 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 Route::get('/course', function () {
     return PublicCourseResource::collection(Course::all());
 });
+
+// Socialite Login routes
+Route::get('/login/{provider}', [SocialiteController::class,'redirectToProvider']);
+Route::get('/login/{provider}/callback', [SocialiteController::class,'handleProviderCallback']);
 
 Route::middleware(['auth:sanctum'])->prefix('portal')->group(function () {
     // Users

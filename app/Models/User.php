@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Chapter::class);
     }
+
+    public function providers(): HasMany
+    {
+        return $this->hasMany(Provider::class,'user_id','id');
+    }
 }
