@@ -26,7 +26,9 @@ class CourseResource extends JsonResource
             'public' => $this->public,
             'publish_at' => $this->publish_at,
             'author' => $this->author, // 'user_id'
+            'chapters' => PublicChapterResource::collection($this->chapters),
             'created_at' => $this->created_at,
+            'publish_at' => $this->publish_at,
             'updated_at' => $this->updated_at,
         ];
     }

@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\AdminChapterController;
+use App\Http\Controllers\Api\AdminCourseController;
+use App\Http\Controllers\Api\AdminLessonController;
 use App\Http\Controllers\SocialiteController;
-use App\Http\Resources\CourseResource;
 use App\Http\Resources\LessonResource;
 use App\Http\Resources\PublicChapterResource;
 use App\Http\Resources\PublicCourseResource;
@@ -44,7 +46,7 @@ Route::get('/chapter/{id}', function (string $id) {
 Route::get('/login/{provider}', [SocialiteController::class,'redirectToProvider']);
 Route::get('/login/{provider}/callback', [SocialiteController::class,'handleProviderCallback']);
 
-// User
+// Auth User
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/lesson/{id}', function(string $id) {
         return new LessonResource(Lesson::findOrFail($id));
@@ -52,15 +54,24 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->prefix('portal')->group(function () {
+    Route::get('/funfacts', function (Request $request) {
+        $students = User::has('roles','<=', 0)->count();
+        $courses = Course::where('public', true)->count();
+        $videos = Lesson::where('type', 'video')->count();
+        return response()->json([
+            'students' => $students,
+            'courses' => $courses,
+            'enrollments' => 0, // fake data right now
+            'earningsTotal' => 0, // fake data right now
+            'videos' => $videos,
+        ]);
+    });
     // Users
-    Route::get('/users', function () {
-        return UserResource::collection(User::all());
-    });
-    Route::get('/user/{id}', function (string $id) {
-        return new UserResource(User::findOrFail($id));
-    });
+    Route::apiResource('users', AdminCourseController::class);
     // Courses
-    Route::get('/courses', function () {
-        return CourseResource::collection(Course::all());
-    });
+    Route::apiResource('course', AdminCourseController::class);
+    // Chapter
+    Route::apiResource('chapter', AdminChapterController::class);
+    // Lesson
+    Route::apiResource('lesson', AdminLessonController::class);
 });
