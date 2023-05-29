@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\SocialiteController;
 use App\Http\Resources\CourseResource;
+use App\Http\Resources\LessonResource;
 use App\Http\Resources\PublicChapterResource;
 use App\Http\Resources\PublicCourseResource;
 use App\Http\Resources\UserResource;
 use App\Models\Chapter;
 use App\Models\Course;
+use App\Models\Lesson;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +43,13 @@ Route::get('/chapter/{id}', function (string $id) {
 // Socialite Login routes
 Route::get('/login/{provider}', [SocialiteController::class,'redirectToProvider']);
 Route::get('/login/{provider}/callback', [SocialiteController::class,'handleProviderCallback']);
+
+// User
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/lesson/{id}', function(string $id) {
+        return new LessonResource(Lesson::findOrFail($id));
+    });
+});
 
 Route::middleware(['auth:sanctum'])->prefix('portal')->group(function () {
     // Users

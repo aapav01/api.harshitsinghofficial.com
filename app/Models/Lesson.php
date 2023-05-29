@@ -33,6 +33,6 @@ class Lesson extends Model
 
     public function chapter(): BelongsTo
     {
-        return $this->belongsTo(Chapter::class);
+        return $this->belongsTo(Chapter::class, 'chapter_id', 'id');
     }
 }
