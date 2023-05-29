@@ -14,7 +14,7 @@ class Lesson extends Model
     protected $fillable = [
         'title',
         'description',
-        'thumbUrl',
+        'thumb_url',
         'length',
         'url',
         'position',

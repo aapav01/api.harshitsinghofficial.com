@@ -20,8 +20,8 @@ class LessonFactory extends Factory
     {
         return [
             'title' => fake()->unique()->sentence(),
-            'description' => fake()->paragraph(),
-            'thumbUrl' => fake()->imageUrl(360, 360, 'animals', true, 'dogs', true),
+            'description' => fake()->sentences(2, true),
+            'thumb_url' => fake()->imageUrl(360, 360, 'animals', true, 'dogs', true),
             // 'url',
             'type' =>'Video',
             'status' => 'success',
