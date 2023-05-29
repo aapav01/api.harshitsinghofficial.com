@@ -15,8 +15,8 @@ return new class extends Migration
             $table->uuid('id');
             $table->string('name');
             $table->text('description')->nullable();
-            $table->foreignId('course_id')->index()->onDelete('cascade');
-            $table->foreignId('user_id')->index()->onDelete('cascade');
+            $table->foreignUuid('course_id')->index()->onDelete('cascade');
+            $table->foreignUuid('user_id')->index()->onDelete('cascade');
             $table->timestamps();
         });
     }

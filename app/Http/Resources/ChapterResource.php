@@ -19,7 +19,7 @@ class ChapterResource extends JsonResource
             'description' => $this->description,
             'lessons' => PublicLessonResource::collection($this->lessons), //TODO: ->where('public', true)
             'course' => $this->course,
-            'author' => UserResource::collection($this->author), // 'user_id'
+            'author' => $this->author, // 'user_id'
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

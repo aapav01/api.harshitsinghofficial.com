@@ -15,12 +15,13 @@ class Chapter extends Model
     protected $fillable = [
         'name',
         'description',
-        'course_id'
+        'course_id',
+        'user_id',
     ];
 
     public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function course(): BelongsTo

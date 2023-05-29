@@ -25,7 +25,7 @@ class LessonResource extends JsonResource
             'position' => $this->position,
             'platform' => $this->platform,
             'public' => $this->public,
-            'author' => UserResource::collection($this->author), // 'user_id'
+            'author' => $this->author, // 'user_id'
             'chapter' => ChapterResource::collection($this->chapter), // 'chapter_id'
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

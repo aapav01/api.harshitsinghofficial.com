@@ -23,7 +23,7 @@ return new class extends Migration
             $table->float('before_price')->nullable();
             $table->boolean('public')->default(false);
             $table->dateTime('publish_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->foreignId('user_id')->index()->onDelete('cascade');
+            $table->foreignUuid('user_id')->index()->onDelete('cascade');
             $table->timestamps();
         });
     }

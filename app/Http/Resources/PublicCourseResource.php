@@ -26,7 +26,7 @@ class PublicCourseResource extends JsonResource
             'before_price' => $this->before_price,
             'public' => $this->public,
             'publish_at' => $this->publish_at,
-            'author' => UserResource::collection($this->author), // 'user_id'
+            'author' => $this->author, // 'user_id'
             'chapters' => PublicChapterResource::collection($this->chapters),
             'updated_at' => $this->updated_at,
         ];
