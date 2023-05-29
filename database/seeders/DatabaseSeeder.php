@@ -17,10 +17,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->has(Course::factory(3)->has(Chapter::factory(5)->has(Lesson::factory(10))))->create([
+        $this->call(PermissionSeeder::class);
+
+        $user = User::factory()->has(Course::factory(3)->has(Chapter::factory(5)->has(Lesson::factory(10))))->create([
             'name' => 'Harshit Singh',
             'email' => 'harshit@lpcs.co.in',
         ]);
+        $user->assignRole('Teacher');
 
     }
 }
