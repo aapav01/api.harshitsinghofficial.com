@@ -6,6 +6,8 @@ namespace Database\Seeders;
 
 use App\Models\Chapter;
 use App\Models\Course;
+use App\Models\Lesson;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,13 +17,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory(10)->create();
-
-        \App\Models\User::factory()->has(Course::factory()->count(3))->create([
+        User::factory()->has(Course::factory(3)->has(Chapter::factory(5)->has(Lesson::factory(10))))->create([
             'name' => 'Harshit Singh',
             'email' => 'harshit@lpcs.co.in',
         ]);
-
 
     }
 }
