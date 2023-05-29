@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\SocialiteController;
 use App\Http\Resources\CourseResource;
+use App\Http\Resources\PublicChapterResource;
 use App\Http\Resources\PublicCourseResource;
 use App\Http\Resources\UserResource;
+use App\Models\Chapter;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -26,6 +28,14 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::get('/course', function () {
     return PublicCourseResource::collection(Course::all());
+});
+
+Route::get('/course/{slug}', function (string $slug) {
+    return new PublicCourseResource(Course::where('slug', $slug)->first());
+});
+
+Route::get('/chapter/{id}', function (string $id) {
+    return new PublicChapterResource(Chapter::findOrFail($id));
 });
 
 // Socialite Login routes
