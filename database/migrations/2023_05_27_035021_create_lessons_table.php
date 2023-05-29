@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('thumb_url')->nullable();
             $table->boolean('public')->default(false);
             $table->integer('position')->default(1);
-            $table->enum('type', ['Video', 'Audio', 'Document', 'PDF', 'Image', 'Quiz']);
+            $table->enum('type', ['video', 'audio', 'document', 'pdf', 'image', 'quiz']);
             $table->enum('status', ['preparing', 'processing', 'success', 'failure'])->default('preparing');
             $table->enum('platform', [
                 'Youtube', 'SoundCloud', 'Facebook', 'Vimeo',
