@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AdminChapterController;
 use App\Http\Controllers\Api\AdminCourseController;
+use App\Http\Controllers\Api\AdminEnrollmentController;
 use App\Http\Controllers\Api\AdminLessonController;
 use App\Http\Controllers\Api\AdminUserController;
 use App\Http\Controllers\SocialiteController;
