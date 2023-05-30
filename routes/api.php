@@ -75,4 +75,6 @@ Route::middleware(['auth:sanctum'])->prefix('portal')->group(function () {
     Route::apiResource('chapter', AdminChapterController::class);
     // Lesson
     Route::apiResource('lesson', AdminLessonController::class);
+    // Enrollments
+    Route::apiResource('enrollment', AdminEnrollmentController::class);
 });
