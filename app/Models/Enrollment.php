@@ -16,7 +16,6 @@ class Enrollment extends Model
         'payment_method',
         'description',
         'status',
-        'public',
         'course_id',
         'user_id'
     ];

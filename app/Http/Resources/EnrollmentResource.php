@@ -20,7 +20,6 @@ class EnrollmentResource extends JsonResource
             'payment_method' => $this->payment_method,
             'description' => $this->description,
             'status' => $this->status,
-            'public' => $this->public,
             'course' => $this->course,
             'user' => $this->user,
         ];

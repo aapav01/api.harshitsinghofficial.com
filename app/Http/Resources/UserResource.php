@@ -20,6 +20,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'image' => $this->image,
             'roles' => $this->roles,
+            'enrollments' => EnrollmentResource::collection($this->enrollments),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

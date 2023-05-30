@@ -27,8 +27,8 @@ return new class extends Migration
                 'Twitch', 'Streamable', 'Wistia', 'DailyMotion',
                 'Mixcloud', 'Vidyard', 'Kaltura', 'Files'
             ])->nullable();
-            $table->foreignUuid('user_id')->index()->onDelete('cascade');
-            $table->foreignUuid('chapter_id')->nullable()->index()->onDelete('cascade');
+            $table->foreignUlid('user_id')->index()->onDelete('cascade');
+            $table->foreignUlid('chapter_id')->nullable()->index()->onDelete('cascade');
             $table->timestamps();
         });
     }
