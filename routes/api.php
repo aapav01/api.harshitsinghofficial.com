@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AdminChapterController;
 use App\Http\Controllers\Api\AdminCourseController;
 use App\Http\Controllers\Api\AdminLessonController;
+use App\Http\Controllers\Api\AdminUserController;
 use App\Http\Controllers\SocialiteController;
 use App\Http\Resources\LessonResource;
 use App\Http\Resources\PublicChapterResource;
@@ -67,7 +68,7 @@ Route::middleware(['auth:sanctum'])->prefix('portal')->group(function () {
         ]);
     });
     // Users
-    Route::apiResource('users', AdminCourseController::class);
+    Route::apiResource('users', AdminUserController::class);
     // Courses
     Route::apiResource('course', AdminCourseController::class);
     // Chapter
