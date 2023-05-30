@@ -5,12 +5,14 @@ use App\Http\Controllers\Api\AdminCourseController;
 use App\Http\Controllers\Api\AdminLessonController;
 use App\Http\Controllers\Api\AdminUserController;
 use App\Http\Controllers\SocialiteController;
+use App\Http\Resources\EnrollmentResource;
 use App\Http\Resources\LessonResource;
 use App\Http\Resources\PublicChapterResource;
 use App\Http\Resources\PublicCourseResource;
 use App\Http\Resources\UserResource;
 use App\Models\Chapter;
 use App\Models\Course;
+use App\Models\Enrollment;
 use App\Models\Lesson;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -32,11 +34,18 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::get('/course', function () {
-    return PublicCourseResource::collection(Course::all());
+    return PublicCourseResource::collection(Course::where([
+        ['public', true],
+        ['publish_at', '<=', now()]
+    ])->get());
 });
 
 Route::get('/course/{slug}', function (string $slug) {
-    return new PublicCourseResource(Course::where('slug', $slug)->first());
+    return new PublicCourseResource(Course::where([
+        ['slug', $slug],
+        ['public', true],
+        ['publish_at', '<=', now()]
+    ])->first());
 });
 
 Route::get('/chapter/{id}', function (string $id) {
@@ -56,15 +65,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::middleware(['auth:sanctum'])->prefix('portal')->group(function () {
     Route::get('/funfacts', function (Request $request) {
-        $students = User::has('roles','<=', 0)->count();
-        $courses = Course::where('public', true)->count();
-        $videos = Lesson::where('type', 'video')->count();
+        $enrollments = EnrollmentResource::collection(Enrollment::all());
         return response()->json([
-            'students' => $students,
-            'courses' => $courses,
-            'enrollments' => 0, // fake data right now
-            'earningsTotal' => 0, // fake data right now
-            'videos' => $videos,
+            'students' =>  User::has('roles','<=', 0)->count(),
+            'courses' => Course::where('public', true)->count(),
+            'enrollments' => $enrollments->count(),
+            'earningsTotal' => $enrollments->sum('bought_price'),
+            'videos' => Lesson::where('type', 'video')->count(),
         ]);
     });
     // Users
