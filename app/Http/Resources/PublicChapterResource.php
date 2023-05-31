@@ -20,6 +20,8 @@ class PublicChapterResource extends JsonResource
             'description' => $this->description,
             'lessons' => PublicLessonResource::collection($this->lessons->where('public', true)),
             'course' => $this->course,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }

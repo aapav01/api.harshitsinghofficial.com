@@ -17,10 +17,10 @@ return new class extends Migration
             $table->string('gateway');
             $table->string('method');
             $table->string('currency');
-            $table->string('user_email');
+            $table->string('user_email')->nullable();
             $table->string('amount');
             $table->longText('json_response');
-            $table->foreignUlid('enrollment_id')->index();
+            $table->foreignUlid('enrollment_id')->index()->nullable();
             $table->timestamps();
         });
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PaymentResource;
 use App\Models\Enrollment;
 use App\Models\Payment;
 use Exception;
@@ -11,6 +12,10 @@ use Razorpay\Api\Api;
 
 class RazorpayController extends Controller
 {
+    public function index()
+    {
+        return PaymentResource::collection(Payment::all());
+    }
     /**
      * Store a newly created resource in storage.
      */

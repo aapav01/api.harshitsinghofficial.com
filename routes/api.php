@@ -91,4 +91,6 @@ Route::middleware(['auth:sanctum'])->prefix('portal')->group(function () {
     Route::apiResource('lesson', AdminLessonController::class);
     // Enrollments
     Route::apiResource('enrollment', AdminEnrollmentController::class);
+    // Payments
+    Route::get('payments', [RazorpayController::class, 'index']);
 });
