@@ -16,7 +16,7 @@ return new class extends Migration
             $table->float('bought_price');
             $table->string('payment_method')->nullable();
             $table->text('description')->nullable();
-            $table->enum('status', ['paid', 'pending']);
+            $table->enum('status', ['pending', 'paid', 'failed'])->default('pending');
             $table->foreignUlid('user_id')->index()->onDelete('cascade');
             $table->foreignUlid('course_id')->index()->onDelete('cascade');
             $table->timestamps();

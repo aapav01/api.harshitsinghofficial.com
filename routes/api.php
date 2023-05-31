@@ -5,6 +5,8 @@ use App\Http\Controllers\Api\AdminCourseController;
 use App\Http\Controllers\Api\AdminEnrollmentController;
 use App\Http\Controllers\Api\AdminLessonController;
 use App\Http\Controllers\Api\AdminUserController;
+use App\Http\Controllers\Api\EnrollmentController;
+use App\Http\Controllers\Api\RazorpayController;
 use App\Http\Controllers\SocialiteController;
 use App\Http\Resources\EnrollmentResource;
 use App\Http\Resources\LessonResource;
@@ -29,10 +31,6 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return new UserResource($request->user());
-});
 
 Route::get('/course', function () {
     return PublicCourseResource::collection(Course::where([
@@ -59,14 +57,22 @@ Route::get('/login/{provider}/callback', [SocialiteController::class,'handleProv
 
 // Auth User
 Route::middleware(['auth:sanctum'])->group(function () {
+    // Me
+    Route::get('/user', function (Request $request) {
+        return new UserResource($request->user());
+    });
+    // Lesson
     Route::get('/lesson/{id}', function(string $id) {
         return new LessonResource(Lesson::findOrFail($id));
     });
+    // Payment
+    Route::post('/payment', [RazorpayController::class, 'store'])->name('api.payment');
+    Route::post('/enroll-order', [EnrollmentController::class, 'store'])->name('api.order');
 });
 
 Route::middleware(['auth:sanctum'])->prefix('portal')->group(function () {
     Route::get('/funfacts', function (Request $request) {
-        $enrollments = EnrollmentResource::collection(Enrollment::all());
+        $enrollments = EnrollmentResource::collection(Enrollment::where('status', 'paid')->get());
         return response()->json([
             'students' =>  User::has('roles','<=', 0)->count(),
             'courses' => Course::where('public', true)->count(),
