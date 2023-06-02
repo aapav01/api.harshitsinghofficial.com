@@ -22,7 +22,25 @@ class AdminLessonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $lesson = Lesson::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                // 'thumb_url' => $request->thumb_url,
+                // 'length' => $request->length,
+                'url' => $request->url,
+                'position' => $request->position,
+                'type' => $request->type,
+                'status' => $request->status,
+                'platform' => $request->platform,
+                'public' => $request->public,
+                'user_id' => $request->user()->id,
+                'chapter_id' => $request->chapter_id,
+            ]);
+            return new LessonResource($lesson);
+        } catch (\Exception $e) {
+            return response()->json(array('error' => $e->getMessage()));
+        }
     }
 
     /**
@@ -38,7 +56,25 @@ class AdminLessonController extends Controller
      */
     public function update(Request $request, Lesson $lesson)
     {
-        //
+        try {
+            $lesson->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                // 'thumb_url' => $request->thumb_url,
+                // 'length' => $request->length,
+                'url' => $request->url,
+                'position' => $request->position,
+                'type' => $request->type,
+                'status' => $request->status,
+                'platform' => $request->platform,
+                'public' => $request->public,
+                'user_id' => $request->user()->id,
+                'chapter_id' => $request->chapter_id,
+            ]);
+            return new LessonResource($lesson);
+        } catch (\Exception $e) {
+            return response()->json(array('error' => $e->getMessage()));
+        }
     }
 
     /**
@@ -46,6 +82,6 @@ class AdminLessonController extends Controller
      */
     public function destroy(Lesson $lesson)
     {
-        $lesson->delete();
+        return $lesson->deleteOrFail();
     }
 }

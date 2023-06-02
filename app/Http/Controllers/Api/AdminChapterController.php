@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ChapterResource;
 use App\Models\Chapter;
+use Exception;
 use Illuminate\Http\Request;
 
 class AdminChapterController extends Controller
@@ -22,7 +23,17 @@ class AdminChapterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $chapter = Chapter::create([
+                'name' => $request->name,
+                'description' => $request->description,
+                'course_id'  => $request->course_id,
+                'user_id' => $request->user()->id,
+            ]);
+            return new ChapterResource($chapter);
+        } catch (Exception $error) {
+            return response()->json(array('error' => $error->getMessage()));
+        }
     }
 
     /**
@@ -38,7 +49,17 @@ class AdminChapterController extends Controller
      */
     public function update(Request $request, Chapter $chapter)
     {
-        //
+        try {
+            $chapter->update([
+                'name' => $request->name,
+                'description' => $request->description,
+                'course_id'  => $request->course_id,
+                'user_id' => $request->user()->id,
+            ]);
+            return new ChapterResource($chapter);
+        } catch (Exception $error) {
+            return response()->json(array('error' => $error->getMessage()));
+        }
     }
 
     /**
@@ -46,6 +67,6 @@ class AdminChapterController extends Controller
      */
     public function destroy(Chapter $chapter)
     {
-        $chapter->delete();
+        return $chapter->deleteOrFail();
     }
 }
