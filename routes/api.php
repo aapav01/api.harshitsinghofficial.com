@@ -79,6 +79,7 @@ Route::middleware(['auth:sanctum'])->prefix('portal')->group(function () {
             'enrollments' => $enrollments->count(),
             'earningsTotal' => $enrollments->sum('bought_price'),
             'videos' => Lesson::where('type', 'video')->count(),
+            'quizzes' => Lesson::where('type', 'quiz')->count(),
         ]);
     });
     // Users
