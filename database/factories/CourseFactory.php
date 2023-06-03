@@ -23,7 +23,7 @@ class CourseFactory extends Factory
         return [
             'name' => $name,
             'short' => fake()->sentences(2, true),
-            'description' => fake()->paragraph(),
+            'description' => fake()->randomHtml(),
             'slug' => Str::slug($name, '-'),
             'image' => fake()->imageUrl(720, 420, 'animals', true, null, true),
             'latest_price' => fake()->randomNumber(3, true),
