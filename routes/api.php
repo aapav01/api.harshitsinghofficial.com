@@ -35,8 +35,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/course', function () {
     return PublicCourseResource::collection(Course::where([
         ['public', true],
-        ['publish_at', '<=', now()]
-    ])->get());
+        // ['publish_at', '<=', now()] // show upcoming
+    ])->orderBy('created_at', 'desc')->get());
 });
 
 Route::get('/course/{slug}', function (string $slug) {
