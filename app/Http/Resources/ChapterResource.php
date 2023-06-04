@@ -18,7 +18,7 @@ class ChapterResource extends JsonResource
             'id'=> $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'lessons' => PublicLessonResource::collection($this->lessons), //TODO: ->where('public', true)
+            'lessons' => PublicLessonResource::collection($this->lessons->where('public', true)),
             'course' => $this->course,
             'author' => $this->author, // 'user_id'
             'created_at' => $this->created_at,
