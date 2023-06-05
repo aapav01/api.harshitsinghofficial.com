@@ -21,7 +21,7 @@ class PublicCourseResource extends JsonResource
             'short' => $this->short,
             'description' => $this->description,
             'slug' => $this->slug,
-            'image' => $this->image,
+            'image' => url($this->image),
             'latest_price' => $this->latest_price,
             'before_price' => $this->before_price,
             'public' => $this->public,

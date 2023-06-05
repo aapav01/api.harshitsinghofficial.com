@@ -33,7 +33,7 @@ class AdminCourseController extends Controller
                 'name' => $request->name,
                 'short' => $request->short,
                 'description' => $request->description,
-                'slug' => Str::slug($request->slug),
+                'slug' => Str::slug($request->name),
                 'image' => $image,
                 'latest_price' => $request->latest_price,
                 'before_price' => $request->before_price,
@@ -43,7 +43,7 @@ class AdminCourseController extends Controller
             ]);
             return new CourseResource($course);
         } catch (Exception $error) {
-            return response()->json(array('error' => $error->getMessage()));
+            return response($status = 500)->json(array('error' => $error->getMessage()));
         }
     }
 
@@ -69,7 +69,7 @@ class AdminCourseController extends Controller
                 'name' => $request->name,
                 'short' => $request->short,
                 'description' => $request->description,
-                'slug' => Str::slug($request->slug),
+                'slug' => Str::slug($request->name),
                 'image' => $image,
                 'latest_price' => $request->latest_price,
                 'before_price' => $request->before_price,
@@ -79,7 +79,7 @@ class AdminCourseController extends Controller
             ]);
             return new CourseResource($course);
         } catch (Exception $error) {
-            return response()->json($error);
+            return response($status = 500)->json(array('error' => $error->getMessage()));
         }
     }
 
