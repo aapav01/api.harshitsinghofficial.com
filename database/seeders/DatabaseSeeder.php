@@ -19,11 +19,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(PermissionSeeder::class);
 
-        $user = User::factory()->has(Course::factory(3)->has(Chapter::factory(5)->has(Lesson::factory(10))))->create([
+        // $user = User::factory()->has(Course::factory(3)->has(Chapter::factory(5)->has(Lesson::factory(10))))->create([
+        $harshit = User::factory()->create([
             'name' => 'Harshit Singh',
             'email' => 'harshit@lpcs.co.in',
         ]);
-        $user->assignRole('Teacher');
-
+        $harshit->assignRole('Teacher');
     }
 }
