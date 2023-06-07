@@ -63,7 +63,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
     // Lesson
     Route::get('/lesson/{id}', function(string $id) {
-        return new LessonResource(Lesson::findOrFail($id));
+        $lesson = Lesson::findOrFail($id);
+        $course_id = $lesson->chapter->course_id;
+        if(User::findOrFail(auth()->user()->id)->enrollments()->where('course_id', $course_id)->count() > 0)
+            return new LessonResource($lesson);
+        else
+            return;
     });
     // Payment
     Route::post('/payment', [RazorpayController::class, 'store'])->name('api.payment');
