@@ -15,6 +15,7 @@ return new class extends Migration
             $table->ulid('id');
             $table->string('name');
             $table->text('description')->nullable();
+            $table->string('collectionId')->nullable(); // API collection ID
             $table->foreignUlid('course_id')->index()->onDelete('cascade');
             $table->foreignUlid('user_id')->index()->onDelete('cascade');
             $table->timestamps();
