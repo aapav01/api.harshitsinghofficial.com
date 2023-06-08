@@ -43,7 +43,7 @@ Route::get('/course/{slug}', function (string $slug) {
     return new PublicCourseResource(Course::where([
         ['slug', $slug],
         ['public', true],
-        ['publish_at', '<=', now()]
+        // ['publish_at', '<=', now()]
     ])->first());
 });
 
