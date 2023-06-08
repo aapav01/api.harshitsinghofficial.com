@@ -61,6 +61,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', function (Request $request) {
         return new UserResource($request->user());
     });
+    Route::get('/learn/chapter/{id}', function (string $id) {
+        $chapter = Chapter::findOrFail($id);
+        $course_id = $chapter->course_id;
+        if(User::findOrFail(auth()->user()->id)->enrollments()->where('course_id', $course_id)->count() > 0)
+            return new PublicChapterResource($chapter);
+        else
+            return response($status = 403)->json();
+    });
     // Lesson
     Route::get('/lesson/{id}', function(string $id) {
         $lesson = Lesson::findOrFail($id);
